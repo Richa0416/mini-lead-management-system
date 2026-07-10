@@ -1,0 +1,9 @@
+POST http://localhost:5000/api/leads
+Content-Type: application/json
+
+{
+  "name": "Richa",
+  "email": "richa@gmail.com",
+  "phone": "9876543210",
+  "company": "ABC Pvt Ltd"
+}
