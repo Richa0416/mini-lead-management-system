@@ -2,7 +2,11 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-function LeadForm({ selectedLead, setSelectedLead }) {
+function LeadForm({
+  selectedLead,
+  setSelectedLead,
+  fetchLeads,
+}) {
   const [lead, setLead] = useState({
     name: "",
     email: "",
@@ -10,7 +14,7 @@ function LeadForm({ selectedLead, setSelectedLead }) {
     company: "",
   });
 
-  // Fill form when Edit button is clicked
+  // Fill form while editing
   useEffect(() => {
     if (selectedLead) {
       setLead({
@@ -22,7 +26,7 @@ function LeadForm({ selectedLead, setSelectedLead }) {
     }
   }, [selectedLead]);
 
-  // Handle input changes
+  // Handle Input Change
   const handleChange = (e) => {
     setLead({
       ...lead,
@@ -30,31 +34,30 @@ function LeadForm({ selectedLead, setSelectedLead }) {
     });
   };
 
-  // Handle form submit
+  // Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validation
-    if (!lead.name || !lead.email || !lead.phone) {
-      toast.warning("Please fill all required fields.");
+    if (!lead.name || !lead.email || !lead.phone || !lead.company) {
+      toast.warning("Please fill all fields.");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(lead.email)) {
-      toast.warning("Please enter a valid email.");
+      toast.warning("Enter a valid email.");
       return;
     }
 
     if (!/^\d{10}$/.test(lead.phone)) {
-      toast.warning("Phone number must be exactly 10 digits.");
+      toast.warning("Phone number must contain exactly 10 digits.");
       return;
     }
 
     try {
       if (selectedLead) {
-        // Update Lead
         await axios.put(
           `http://localhost:5000/api/leads/${selectedLead._id}`,
           lead
@@ -62,7 +65,6 @@ function LeadForm({ selectedLead, setSelectedLead }) {
 
         toast.success("Lead Updated Successfully!");
       } else {
-        // Add Lead
         await axios.post(
           "http://localhost:5000/api/leads",
           lead
@@ -71,7 +73,14 @@ function LeadForm({ selectedLead, setSelectedLead }) {
         toast.success("Lead Added Successfully!");
       }
 
-      // Clear form
+      // Refresh Lead List
+      const res = await axios.get(
+        "http://localhost:5000/api/leads"
+      );
+
+      fetchLeads(res.data);
+
+      // Clear Form
       setLead({
         name: "",
         email: "",
@@ -79,56 +88,79 @@ function LeadForm({ selectedLead, setSelectedLead }) {
         company: "",
       });
 
-      // Exit edit mode
+      // Exit Edit Mode
       setSelectedLead(null);
 
-      // Temporary refresh
-      window.location.reload();
-
     } catch (error) {
-      console.error(error);
+      console.log(error);
       toast.error("Operation Failed!");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="name"
-        placeholder="Enter Name"
-        value={lead.name}
-        onChange={handleChange}
-      />
+    <div className="form-card">
+      <h2>
+        {selectedLead
+          ? "✏️ Update Lead"
+          : "➕ Add New Lead"}
+      </h2>
 
-      <input
-        type="email"
-        name="email"
-        placeholder="Enter Email"
-        value={lead.email}
-        onChange={handleChange}
-      />
+      <form onSubmit={handleSubmit} className="lead-form">
 
-      <input
-        type="text"
-        name="phone"
-        placeholder="Enter Phone Number"
-        value={lead.phone}
-        onChange={handleChange}
-      />
+        <div className="form-grid">
 
-      <input
-        type="text"
-        name="company"
-        placeholder="Enter Company"
-        value={lead.company}
-        onChange={handleChange}
-      />
+          <div>
+            <label>Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter Name"
+              value={lead.name}
+              onChange={handleChange}
+            />
+          </div>
 
-      <button className="submit-btn" type="submit">
-        {selectedLead ? "Update Lead" : "Add Lead"}
-      </button>
-    </form>
+          <div>
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter Email"
+              value={lead.email}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <label>Phone</label>
+            <input
+              type="text"
+              name="phone"
+              placeholder="Enter Phone Number"
+              value={lead.phone}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <label>Company</label>
+            <input
+              type="text"
+              name="company"
+              placeholder="Enter Company"
+              value={lead.company}
+              onChange={handleChange}
+            />
+          </div>
+
+        </div>
+
+        <button className="submit-btn" type="submit">
+          {selectedLead ? "Update Lead" : "Add Lead"}
+        </button>
+
+      </form>
+    </div>
   );
 }
 

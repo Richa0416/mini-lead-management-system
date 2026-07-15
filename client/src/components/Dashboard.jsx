@@ -1,43 +1,34 @@
 function Dashboard({ leads }) {
-  const totalCompanies = new Set(
-    leads.map((lead) => lead.company)
-  ).size;
+  const totalLeads = leads.length;
+
+  const companies = [...new Set(leads.map((lead) => lead.company))];
+
+  const today = new Date().toDateString();
+
+  const todayLeads = leads.filter(
+    (lead) =>
+      lead.createdAt &&
+      new Date(lead.createdAt).toDateString() === today
+  );
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "20px",
-        margin: "30px 0",
-      }}
-    >
-      <div
-        style={{
-          flex: 1,
-          background: "#1976d2",
-          color: "white",
-          padding: "20px",
-          borderRadius: "10px",
-          textAlign: "center",
-        }}
-      >
-        <h2>{leads.length}</h2>
-        <p>Total Leads</p>
+    <div className="dashboard">
+
+      <div className="card total-card">
+        <h3>Total Leads</h3>
+        <h2>{totalLeads}</h2>
       </div>
 
-      <div
-        style={{
-          flex: 1,
-          background: "#4caf50",
-          color: "white",
-          padding: "20px",
-          borderRadius: "10px",
-          textAlign: "center",
-        }}
-      >
-        <h2>{totalCompanies}</h2>
-        <p>Companies</p>
+      <div className="card company-card">
+        <h3>Companies</h3>
+        <h2>{companies.length}</h2>
       </div>
+
+      <div className="card today-card">
+        <h3>Today's Leads</h3>
+        <h2>{todayLeads.length}</h2>
+      </div>
+
     </div>
   );
 }

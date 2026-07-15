@@ -3,10 +3,19 @@ const Lead = require("../models/Lead");
 // Create Lead
 const createLead = async (req, res) => {
   try {
+    console.log("BODY:", req.body);
+
     const lead = await Lead.create(req.body);
+
+    console.log("CREATED:", lead);
+
     res.status(201).json(lead);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.log(error);
+
+    res.status(400).json({
+      message: error.message,
+    });
   }
 };
 
