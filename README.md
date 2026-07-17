@@ -14,19 +14,112 @@ A full-stack MERN (MongoDB, Express.js, React.js, Node.js) application for manag
 
 ## ✨ Features
 
-- ✅ Add new leads
-- ✅ Edit existing leads
-- ✅ Delete leads
-- ✅ Search leads by Name, Email, or Company
-- ✅ Pagination
-- ✅ Export leads to CSV
-- ✅ Form validation
-- ✅ Responsive UI
-- ✅ Toast notifications
-- ✅ MongoDB Atlas integration
-- ✅ REST API
+### 📊 Dashboard
+- Displays the total number of leads.
+- Shows the total number of unique companies.
+- Updates automatically whenever a lead is added, edited, or deleted.
 
 ---
+
+### ➕ Add New Lead
+- Create a new lead by entering:
+  - Name
+  - Email
+  - Phone Number
+  - Company
+- Validates all required fields before submission.
+- Ensures email format is valid.
+- Accepts only 10-digit phone numbers.
+- Displays success/error notifications using React Toastify.
+
+---
+
+### ✏️ Edit Lead
+- Edit any existing lead with a single click.
+- Form automatically loads the selected lead's information.
+- Updates are reflected instantly in both the database and UI.
+
+---
+
+### 🗑️ Delete Lead
+- Delete leads securely.
+- Displays a confirmation dialog before deletion.
+- Automatically refreshes the lead list after successful deletion.
+
+---
+
+### 🔍 Search Functionality
+- Search leads in real time.
+- Search works across:
+  - Name
+  - Email
+  - Company
+- Results update instantly as the user types.
+
+---
+
+### 📄 Pagination
+- Displays **5 leads per page**.
+- Previous and Next buttons for smooth navigation.
+- Automatically updates page count after search, addition, or deletion.
+
+---
+
+### 📥 Export to CSV
+- Export all filtered leads into a CSV file.
+- Downloads include:
+  - Name
+  - Email
+  - Phone Number
+  - Company
+
+---
+
+### 🔔 Toast Notifications
+- Success notification after:
+  - Adding a lead
+  - Updating a lead
+  - Deleting a lead
+- Warning notifications for invalid input.
+- Error notifications for failed API requests.
+
+---
+
+### 📱 Responsive UI
+- Fully responsive design.
+- Optimized for:
+  - Desktop
+  - Tablet
+  - Mobile devices
+
+---
+
+### 🌐 REST API Integration
+- Complete CRUD operations using Express.js APIs.
+- Axios used for frontend-backend communication.
+- MongoDB Atlas used for persistent cloud storage.
+
+---
+
+### ☁️ Deployment
+- Frontend deployed on **Vercel**.
+- Backend deployed on **Render**.
+- Database hosted on **MongoDB Atlas**.
+- Live application accessible from anywhere.
+
+---
+
+### 🛡️ Form Validation
+- Required field validation.
+- Email format validation.
+- Phone number validation (10 digits).
+- Prevents invalid data from being submitted.
+
+---
+
+### 💾 Persistent Database
+- Lead data is stored securely in MongoDB Atlas.
+- Data remains available after page refreshes or application restarts.
 
 ## 🛠 Tech Stack
 
