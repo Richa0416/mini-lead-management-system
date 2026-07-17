@@ -15,7 +15,7 @@ function LeadList({ handleEdit, leads, setLeads }) {
 
   const fetchLeads = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/leads");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/leads`);
       setLeads(res.data);
     } catch (error) {
       console.log(error);
