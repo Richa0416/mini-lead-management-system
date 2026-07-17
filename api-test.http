@@ -1,4 +1,4 @@
-POST http://localhost:5000/api/leads
+POST https://mini-crm-backend-tq51.onrender.com/api/leads
 Content-Type: application/json
 
 {

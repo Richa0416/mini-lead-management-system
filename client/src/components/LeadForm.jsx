@@ -59,14 +59,14 @@ function LeadForm({
     try {
       if (selectedLead) {
         await axios.put(
-          `http://localhost:5000/api/leads/${selectedLead._id}`,
+          `https://mini-crm-backend-tq51.onrender.com/api/leads/${selectedLead._id}`,
           lead
         );
 
         toast.success("Lead Updated Successfully!");
       } else {
         await axios.post(
-          "http://localhost:5000/api/leads",
+          "https://mini-crm-backend-tq51.onrender.com/api/leads",
           lead
         );
 
@@ -75,7 +75,7 @@ function LeadForm({
 
       // Refresh Lead List
       const res = await axios.get(
-        "http://localhost:5000/api/leads"
+        "https://mini-crm-backend-tq51.onrender.com/api/leads"
       );
 
       fetchLeads(res.data);

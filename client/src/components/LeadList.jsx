@@ -31,7 +31,7 @@ function LeadList({ handleEdit, leads, setLeads }) {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/leads/${id}`);
+      await axios.delete(`https://mini-crm-backend-tq51.onrender.com/api/leads/${id}`);
 
       toast.success("Lead Deleted Successfully!");
 
